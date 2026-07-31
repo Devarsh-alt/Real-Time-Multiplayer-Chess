@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+/* ---------- Layout shell ---------- */
+
+.game-container {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: radial-gradient(ellipse at 50% 0%, #0f1d3a 0%, #0a0f1f 55%, #05070f 100%);
+  font-family: "Inter", sans-serif;
+}
+
+.galaxy-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.game-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  padding: 56px 24px 80px;
+}
+
+.board-panel {
+  width: min(1100px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+/* ---------- Turn indicator ---------- */
+
+.turn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #f3ead9;
+  background: rgba(13, 17, 32, 0.88);
+  border: 1px solid rgba(201, 162, 39, 0.45);
+  box-shadow: 0 0 24px rgba(201, 162, 39, 0.18), inset 0 0 12px rgba(201, 162, 39, 0.08);
+}
+
+.turn-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  box-shadow: 0 0 8px 2px currentColor;
+  animation: pulse-dot 2.2s ease-in-out infinite;
+}
+
+.turn-white .turn-dot { color: #f3ead9; background: #f3ead9; }
+.turn-black .turn-dot { color: #c9a227; background: #c9a227; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.5; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .turn-dot { animation: none; }
+}
+
+/* ---------- Board + history grid ---------- */
+
+.game-grid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.board-frame {
+  position: relative;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(10, 13, 26, 0.9);
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.02) inset,
+    0 0 40px rgba(15, 93, 98, 0.12);
+  overflow: hidden;
+}
+
+.board-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  max-width: 100%;
+}
+
+#my-board-board {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* ---------- History ledger ---------- */
+
+.game-history {
+  width: 300px;
+  max-height: 540px;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 22px 12px;
+  background: rgba(10, 13, 26, 0.9);
+  color: #f3ead9;
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.game-history h2 {
+  text-align: center;
+  margin: 0 0 14px;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  color: #c9a227;
+  font-size: 1.5rem;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.3);
+  padding-bottom: 12px;
+}
+
+.history-empty {
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgba(243, 234, 217, 0.55);
+  font-style: italic;
+  margin-top: 12px;
+}
+
+.game-history ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+}
+
+.game-history li {
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+.game-history li:hover {
+  background: rgba(201, 162, 39, 0.08);
+}
+
+.history-table {
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.history-table::-webkit-scrollbar {
+  width: 6px;
+}
+.history-table::-webkit-scrollbar-thumb {
+  background: rgba(201, 162, 39, 0.4);
+  border-radius: 3px;
+}
+
+.history-row {
+  display: grid;
+  grid-template-columns: 32px 1fr 1fr;
+  align-items: center;
+  padding: 7px 4px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.88rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.history-row:hover {
+  background: rgba(201, 162, 39, 0.06);
+}
+
+.history-header {
+  font-family: "Inter", sans-serif;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(201, 162, 39, 0.75);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.3);
+}
+
+.col-num {
+  color: rgba(243, 234, 217, 0.45);
+  font-size: 0.8rem;
+}
+
+.col-move {
+  color: #f3ead9;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .board-wrap {
+    min-width: min(90vw, 420px);
+  }
+  .game-history {
+    width: min(90vw, 420px);
+  }
+}
+
+.status-check {
+  color: #ffb347;
+}
+
+.status-checkmate {
+  color: #ff4d4d;
+}
+
+.status-draw {
+  color: #7ee787;
+}
