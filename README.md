@@ -265,7 +265,4 @@ This project is licensed under the MIT License.
 
 ````
 
----
 
-d location (or move the frontend into `client/` before publishing). That small change makes the repository look more polished and familiar to recruiters reviewing GitHub projects.
-````
