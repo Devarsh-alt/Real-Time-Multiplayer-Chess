@@ -267,16 +267,5 @@ This project is licensed under the MIT License.
 
 ---
 
-### One improvement before you publish
-
-Your current structure appears to be:
-
-```text
-chess-app/
-├── server/
-├── src/
-├── package.json
-```
-
-The README above assumes the frontend is under a `client/` directory, which is the more common full-stack layout. If you don't move it yet, simply replace every occurrence of `client/` in the README with the current frontend location (or move the frontend into `client/` before publishing). That small change makes the repository look more polished and familiar to recruiters reviewing GitHub projects.
+d location (or move the frontend into `client/` before publishing). That small change makes the repository look more polished and familiar to recruiters reviewing GitHub projects.
 ````
